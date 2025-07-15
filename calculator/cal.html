@@ -1,50 +1,126 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>calculater</title>
+    <title>Professional Calculator</title>
     <link rel="stylesheet" href="cal.css" />
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
-    <input type="text" id="display" value="" readonly />
-    <script>
-      const display = document.getElementById("display");
-      setInterval(() => {
-        display.value = calculation;
-      }, 100);
-      let calculation = "";
-      function backspace() {
-    calculation = calculation.slice(0, -1);
-    display.value = calculation;
-  }
-    </script>
-    <p class="row1">
-      <button onclick="calculation += '1';console.log(calculation);">1</button>
-      <button onclick="calculation += '2';console.log(calculation);">2</button>
-      <button onclick="calculation += '3';console.log(calculation);">3</button>
-      <button onclick="calculation +='+';console.log(calculation);">+</button>
-    </p>
-    <p class="row2">
-      <button onclick="calculation += '4';console.log(calculation);">4</button>
-      <button onclick="calculation += '5';console.log(calculation);">5</button>
-      <button onclick="calculation += '6';console.log(calculation);">6</button>
-      <button onclick="calculation +='-';console.log(calculation);">-</button>
-    </p>
-    <p class="row3">
-      <button onclick="calculation += '7';console.log(calculation);">7</button>
-      <button onclick="calculation += '8';console.log(calculation);">8</button>
-      <button onclick="calculation += '9';console.log(calculation);">9</button>
-      <button onclick="calculation +='*';console.log(calculation);">*</button>
-    </p>
-    <p class="row4">
-      <button onclick="calculation += '0';console.log(calculation);">0</button>
-      <button onclick="calculation = '';console.log(calculation);">C</button>
-      <button onclick="calculation += '/';console.log(calculation);">/</button>
-      <button onclick="calculation = eval(calculation);console.log(calculation);">=</button>
-    </p>
-    <button onclick="backspace()">backspace</button>
+    <div class="calculator-container">
+      <div class="display-container">
+        <div id="preview" class="calculation-preview"></div>
+        <label for="display" class="sr-only">Calculator Display</label>
+        <input type="text" id="display" placeholder="0" readonly />
+      </div>
+      <script>
+        const display = document.getElementById("display");
+        const preview = document.getElementById("preview");
+        setInterval(() => {
+          display.value = calculation;
+          // Show the calculation in preview, but show the result in main display if equals was pressed
+          preview.textContent = calculation.includes("=") ? "" : calculation;
+        }, 100);
+        let calculation = "";
+        function backspace() {
+          calculation = calculation.slice(0, -1);
+          display.value = calculation;
+        }
+      </script>
+      <p class="row1">
+        <button onclick="calculation += '1';console.log(calculation);">
+          1
+        </button>
+        <button onclick="calculation += '2';console.log(calculation);">
+          2
+        </button>
+        <button onclick="calculation += '3';console.log(calculation);">
+          3
+        </button>
+        <button
+          class="operator"
+          onclick="calculation +='+';console.log(calculation);"
+        >
+          +
+        </button>
+      </p>
+      <p class="row2">
+        <button onclick="calculation += '4';console.log(calculation);">
+          4
+        </button>
+        <button onclick="calculation += '5';console.log(calculation);">
+          5
+        </button>
+        <button onclick="calculation += '6';console.log(calculation);">
+          6
+        </button>
+        <button
+          class="operator"
+          onclick="calculation +='-';console.log(calculation);"
+        >
+          −
+        </button>
+      </p>
+      <p class="row3">
+        <button onclick="calculation += '7';console.log(calculation);">
+          7
+        </button>
+        <button onclick="calculation += '8';console.log(calculation);">
+          8
+        </button>
+        <button onclick="calculation += '9';console.log(calculation);">
+          9
+        </button>
+        <button
+          class="operator"
+          onclick="calculation +='*';console.log(calculation);"
+        >
+          ×
+        </button>
+      </p>
+      <p class="row4">
+        <button onclick="calculation += '0';console.log(calculation);">
+          0
+        </button>
+        <button
+          class="clear"
+          onclick="calculation = '';console.log(calculation);"
+        >
+          C
+        </button>
+        <button
+          class="operator"
+          onclick="calculation += '/';console.log(calculation);"
+        >
+          ÷
+        </button>
+        <button
+          class="equals"
+          onclick="calculation = eval(calculation);console.log(calculation);"
+        >
+          =
+        </button>
+      </p>
+      <button class="backspace" onclick="backspace()">⌫</button>
+    </div>
+
+    <style>
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
   </body>
 </html>
